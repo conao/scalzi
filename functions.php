@@ -51,29 +51,28 @@ function scalzi_theme_add_editor_styles() {
 add_action('admin_init', 'scalzi_theme_add_editor_styles');
 
 
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
+function load_library() {
+    $home = get_template_directory();
+    
+    // Custom template tags for this theme.
+    require($home . '/inc/template-tags.php');
 
-/**
- * Custom functions that act independently of the theme templates.
- */
-require get_template_directory() . '/inc/extras.php';
+    // Custom functions that act independently of the theme templates.
+    require($home . '/inc/extras.php');
 
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
+    // Customizer additions.
+    require($home . '/inc/customizer.php');
 
-/**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/inc/jetpack.php';
+    // Load Jetpack compatibility file.
+    require($home . '/inc/jetpack.php');
 
+    //Include shortcode file
+    require($home . '/inc/shortcode.php'));
 
-//Include shortcode file
-require( get_template_directory() . '/inc/shortcode.php' );
+    // Load Content loader
+    require($home . '/inc/content-loader.php');
+}
+load_library();
 
 // Enqueue Scripts/Styles for our Lightbox
 function scalzi_add_lightbox() {
