@@ -28,6 +28,5 @@ Temporary Items
 .apdisk
 
 ### my option
-build/
 node_modules/
 package-lock.json
