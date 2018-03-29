@@ -67,7 +67,7 @@ function load_library() {
     require($home . '/inc/jetpack.php');
 
     //Include shortcode file
-    require($home . '/inc/shortcode.php'));
+    require($home . '/inc/shortcode.php');
 
     // Load Content loader
     require($home . '/inc/content-loader.php');
@@ -82,4 +82,19 @@ function scalzi_add_lightbox() {
 }
 add_action( 'wp_enqueue_scripts', 'scalzi_add_lightbox' );
 
+function scalzi_pagination() {
+    global $wp_query;
+
+    $big = 999999999; // need an unlikely integer
+    
+    echo paginate_links( array(
+        'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+        'format' => '?paged=%#%',
+        'current' => max( 1, get_query_var('paged') ),
+        'total' => $wp_query->max_num_pages
+    ) );
+}
 ?>
+
+
+
