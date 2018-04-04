@@ -38,7 +38,7 @@ module.exports = {
 
     stylus: {
         src: [  // もし外部のcssフレームワーク使うなら配列の先頭で読み込むと良い
-                src + '/stylus/**/!(_)*'  // ファイル名の先頭がアンスコはビルド対象外にする
+            src + '/stylus/**/!(_)*'  // ファイル名の先頭がアンスコはビルド対象外にする
         ],
         dest: dest + '/css/',
         output: 'monaco.css',  // 出力ファイル名
