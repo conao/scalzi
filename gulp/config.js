@@ -8,6 +8,13 @@ var relativeSrcPath = path.relative('.', src);
 module.exports = {
     dest: dest,
 
+    copy: {
+        src:[
+            src + '/www/index.html'
+        ],
+        dest: dest
+    },
+
     js: {
         src: src + '/js/**',
         dest: dest + '/js',
@@ -27,13 +34,6 @@ module.exports = {
                 extensions: ['.js']
             }
         }
-    },
-
-    copy: {
-        src:[
-            src + '/www/index.html'
-        ],
-        dest: dest
     },
 
     stylus: {

@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var g = require('gulp-load-plugins')();
+var notify = require('gulp-notify');
 
 gulp.task('build', ['webpack', 'stylus', 'copy']);
 gulp.task('default', ['webserver', 'build', 'watch']);
@@ -15,7 +16,9 @@ gulp.task('stylus', function () {
     var config = require('../config').stylus;
     
     gulp.src(config.src)
-        .pipe(g.plumber())              // エラー出ても止まらないようにする
+        .pipe(g.plumber({
+            errorHandler: notify.onError('<%= error.message %>')
+        }))
         .pipe(g.stylus())               // 実際コンパイルしてるのはここ
         .pipe(g.concat(config.output))  // 1つのファイルに固める
         .pipe(g.autoprefixer(config.autoprefixer))  // vendor-prefixつける
@@ -60,6 +63,7 @@ function bs() {
 bs();
 
 gulp.task('watch', function () {
+    var watch = require('gulp-watch');
     var config = require('../config').watch;
     
     // js
