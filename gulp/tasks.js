@@ -59,6 +59,21 @@ function bs() {
     gulp.task('sync', function() {
         gulp.watch('./**/*.php', ['sync-reload']);
     });
+    
+    gulp.task('sync-stylus', function () {
+        var stylus_config = conf.stylus;
+        
+        gulp.src(config.src)
+            .pipe(g.plumber({
+                errorHandler: notify.onError('<%= error.message %>')
+            }))
+            .pipe(g.stylus())               // 実際コンパイルしてるのはここ
+            .pipe(g.concat(stylus_config.output))  // 1つのファイルに固める
+            .pipe(g.autoprefixer(stylus_config.autoprefixer))  // vendor-prefixつける
+            .pipe(g.if(stylus_config.minify, g.cleanCss()))    // 必要ならminifyする
+            .pipe(gulp.dest(stylus_config.dest))            // 出力する
+            .pipe(sync.reload({stream:true}));
+    });
 }
 
 bs();
