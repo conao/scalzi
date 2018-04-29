@@ -56,10 +56,6 @@ function bs() {
         sync.reload();
     });
 
-    gulp.task('sync', function() {
-        gulp.watch('./**/*.php', ['sync-reload']);
-    });
-    
     gulp.task('sync-stylus', function () {
         var stylus_config = conf.stylus;
         
@@ -73,6 +69,10 @@ function bs() {
             .pipe(g.if(stylus_config.minify, g.cleanCss()))    // 必要ならminifyする
             .pipe(gulp.dest(stylus_config.dest))            // 出力する
             .pipe(sync.reload({stream:true}));
+    });
+
+    gulp.task('sync', function() {
+        gulp.watch('./**/*.php', ['sync-reload']);
     });
 }
 
