@@ -15,10 +15,17 @@ module.exports = {
         dest: dest
     },
 
-    js: {
-        src: src + '/js/**',
-        dest: dest + '/js',
-        uglify: false
+
+    stylus: {
+        src: [  // もし外部のcssフレームワーク使うなら配列の先頭で読み込むと良い
+            src + '/stylus/**/!(_)*'  // ファイル名の先頭がアンスコはビルド対象外にする
+        ],
+        dest: dest + '/css/',
+        output: 'monaco.css',  // 出力ファイル名
+        autoprefixer: {
+            browsers: ['last 2 versions']
+        },
+        minify: false
     },
 
     webpack: {
@@ -34,25 +41,7 @@ module.exports = {
                 extensions: ['.js']
             }
         }
-    },
-
-    stylus: {
-        src: [  // もし外部のcssフレームワーク使うなら配列の先頭で読み込むと良い
-            src + '/stylus/**/!(_)*'  // ファイル名の先頭がアンスコはビルド対象外にする
-        ],
-        dest: dest + '/css/',
-        output: 'monaco.css',  // 出力ファイル名
-        autoprefixer: {
-            browsers: ['last 2 versions']
-        },
-        minify: false
-    },
-    
-    watch: {
-        js: relativeSrcPath + '/js/**',
-        stylus: relativeSrcPath + '/stylus/**',
-        www: relativeSrcPath + '/www/index.html'
-    },
+    },    
 
     webserver: {
         src: dest,
@@ -67,5 +56,17 @@ module.exports = {
         server: {
             proxy: 'localhost:8888'
         }
+    },
+    
+    js: {
+        src: src + '/js/**',
+        dest: dest + '/js',
+        uglify: false
+    },
+
+    watch: {
+        js: relativeSrcPath + '/js/**',
+        stylus: relativeSrcPath + '/stylus/**',
+        www: relativeSrcPath + '/www/index.html'
     }
 }
