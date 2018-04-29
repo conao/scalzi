@@ -54,7 +54,7 @@ module.exports = {
 
     sync: {
         server: {
-            proxy: 'localhost:8888'
+            proxy: '127.0.0.1:8888'
         }
     },
     
