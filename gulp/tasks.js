@@ -1,19 +1,20 @@
 var gulp = require('gulp');
 var g = require('gulp-load-plugins')();
 var notify = require('gulp-notify');
+var conf = require('./config')
 
 gulp.task('build', ['webpack', 'stylus', 'copy']);
 gulp.task('default', ['webserver', 'build', 'watch']);
 
 gulp.task('copy', function() {
-    var config = require('../config').copy;
+    var config = conf.copy;
     
     gulp.src(config.src)
         .pipe(gulp.dest(config.dest));
 })
 
 gulp.task('stylus', function () {
-    var config = require('../config').stylus;
+    var config = conf.stylus;
     
     gulp.src(config.src)
         .pipe(g.plumber({
@@ -29,7 +30,7 @@ gulp.task('stylus', function () {
 gulp.task('webpack', function() {
     var webpackStream = require('webpack-stream');
     var webpack = require('webpack');
-    var config = require('../config').webpack;
+    var config = conf.webpack;
     
     webpackStream(config.config, webpack)
         .pipe(gulp.dest(config.dest));
@@ -37,7 +38,7 @@ gulp.task('webpack', function() {
 
 gulp.task('webserver', function() {
     var webserver = require('gulp-webserver');
-    var config = require('../config').webserver;
+    var config = conf.webserver;
     
   gulp.src(config.src)
     .pipe(webserver(config.config));
@@ -45,7 +46,7 @@ gulp.task('webserver', function() {
 
 function bs() {
     var sync = require('browser-sync').create();
-    var config = require('../config').sync
+    var config = conf.sync
 
     gulp.task('sync-init', function() {
         sync.init(null, config);
@@ -64,7 +65,7 @@ bs();
 
 gulp.task('watch', function () {
     var watch = require('gulp-watch');
-    var config = require('../config').watch;
+    var config = conf.watch;
     
     // js
     watch(config.js, function () {
