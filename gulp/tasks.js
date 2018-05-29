@@ -59,7 +59,7 @@ function bs() {
     gulp.task('sync-stylus', function () {
         var stylus_config = conf.stylus;
         
-        gulp.src(config.src)
+        gulp.src(stylus_config.src)
             .pipe(g.plumber({
                 errorHandler: notify.onError('<%= error.message %>')
             }))
@@ -73,6 +73,7 @@ function bs() {
 
     gulp.task('sync', function() {
         gulp.watch('./**/*.php', ['sync-reload']);
+        gulp.watch(conf.stylus.src, ['sync-stylus']);
     });
 }
 
